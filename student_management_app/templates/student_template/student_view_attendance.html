@@ -1,0 +1,58 @@
+{% extends 'base_template.html' %}
+{% block page_title %}View Attendance{% endblock page_title %}
+{% block main_content %}
+<section class="content">
+    <div class="container-fluid">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">View Attendance</h3>
+            </div>
+            <form action="{% url 'student_view_attendance_post' %}" method="post">
+                {% csrf_token %}
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Select Subject</label>
+                        <select class="form-control" name="subject" required>
+                            {% for subject in subjects %}
+                            <option value="{{ subject.id }}">{{ subject.subject_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">View Attendance</button>
+
+                    {% if present_count is not None %}
+                    <div class="mt-4">
+                        <h4>Attendance Summary</h4>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Total Classes</th>
+                                <td>{{ total_count }}</td>
+                            </tr>
+                            <tr>
+                                <th>Present</th>
+                                <td class="text-success">{{ present_count }}</td>
+                            </tr>
+                            <tr>
+                                <th>Absent</th>
+                                <td class="text-danger">{{ absent_count }}</td>
+                            </tr>
+                            <tr>
+                                <th>Attendance Percentage</th>
+                                <td>
+                                    {% if total_count > 0 %}
+                                    {{ present_count|floatformat:0 }}%
+                                    {% else %}
+                                    N/A
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock main_content %}
+{% block sidebar_menu %}{% include 'student_template/sidebar_template.html' %}{% endblock sidebar_menu %}

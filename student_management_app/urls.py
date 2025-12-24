@@ -1,0 +1,47 @@
+from django.urls import path
+from . import views, HodViews, StaffViews, StudentViews
+
+urlpatterns = [
+    path('', views.ShowLogin, name="login"),
+    path('doLogin', views.DoLogin, name="do_login"),
+    path('registration', views.Registration, name="registration"),
+    path('doRegistration', views.DoRegistration, name="do_registration"),
+    path('logout_user', views.logout_user, name="logout"),
+    path('admin_home', views.admin_home, name="admin_home"),
+    path('staff_home', views.staff_home, name="staff_home"),
+    path('student_home', views.student_home, name="student_home"),
+    path('add_staff', HodViews.add_staff, name="add_staff"),
+    path('add_staff_save', HodViews.add_staff_save, name="add_staff_save"),
+    path('add_course', HodViews.add_course, name="add_course"),
+    path('add_course_save', HodViews.add_course_save, name="add_course_save"),
+    path('add_student', HodViews.add_student, name="add_student"),
+    path('add_student_save', HodViews.add_student_save, name="add_student_save"),
+    path('add_subject', HodViews.add_subject, name="add_subject"),
+    path('add_subject_save', HodViews.add_subject_save, name="add_subject_save"),
+    path('add_session', HodViews.add_session, name="add_session"),
+    path('add_session_save', HodViews.add_session_save, name="add_session_save"),
+    
+    # Staff URLs
+    path('staff_take_attendance', StaffViews.staff_take_attendance, name="staff_take_attendance"),
+    path('staff_apply_leave', StaffViews.staff_apply_leave, name="staff_apply_leave"),
+    path('staff_apply_leave_save', StaffViews.staff_apply_leave_save, name="staff_apply_leave_save"),
+    path('staff_feedback', StaffViews.staff_feedback, name="staff_feedback"),
+    path('staff_feedback_save', StaffViews.staff_feedback_save, name="staff_feedback_save"),
+    path('get_students', StaffViews.get_students, name="get_students"),
+    path('save_attendance_data', StaffViews.save_attendance_data, name="save_attendance_data"),
+    path('staff_update_attendance', StaffViews.staff_update_attendance, name="staff_update_attendance"),
+    path('get_attendance_dates', StaffViews.get_attendance_dates, name="get_attendance_dates"),
+    path('get_attendance_student', StaffViews.get_attendance_student, name="get_attendance_student"),
+    path('save_updateattendance_data', StaffViews.save_updateattendance_data, name="save_updateattendance_data"),
+    path('staff_add_result', StaffViews.staff_add_result, name="staff_add_result"),
+    path('save_student_result', StaffViews.save_student_result, name="save_student_result"),
+    
+    # Student URLs
+    path('student_view_attendance', StudentViews.student_view_attendance, name="student_view_attendance"),
+    path('student_view_attendance_post', StudentViews.student_view_attendance_post, name="student_view_attendance_post"),
+    path('student_apply_leave', StudentViews.student_apply_leave, name="student_apply_leave"),
+    path('student_apply_leave_save', StudentViews.student_apply_leave_save, name="student_apply_leave_save"),
+    path('student_feedback', StudentViews.student_feedback, name="student_feedback"),
+    path('student_feedback_save', StudentViews.student_feedback_save, name="student_feedback_save"),
+    path('student_view_result', StudentViews.student_view_result, name="student_view_result"),
+]

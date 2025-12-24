@@ -1,0 +1,26 @@
+{% extends 'base_template.html' %}
+
+{% block page_title %}
+Staff Dashboard
+{% endblock page_title %}
+
+{% block main_content %}
+<div class="row">
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>Staff</h3>
+                <p>Welcome</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-bag"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}
+
+{% block sidebar_menu %}
+{% include 'staff_template/sidebar_template.html' %}
+{% endblock sidebar_menu %}

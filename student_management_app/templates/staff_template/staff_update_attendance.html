@@ -1,0 +1,98 @@
+{% extends 'base_template.html' %}
+{% block page_title %}Update Attendance{% endblock page_title %}
+{% block main_content %}
+<section class="content">
+    <div class="container-fluid">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Update Attendance</h3>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Subject</label>
+                    <select class="form-control" id="subject">
+                        {% for subject in subjects %}
+                        <option value="{{ subject.id }}">{{ subject.subject_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Session Year</label>
+                    <select class="form-control" id="session_year">
+                        {% for session in session_years %}
+                        <option value="{{ session.id }}">{{ session.session_start_year }} to {{ session.session_end_year
+                            }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="button" class="btn btn-success" id="fetch_attendance">Fetch Attendance</button>
+                <div id="attendance_data" style="display:none; margin-top:20px;">
+                    <label>Select Attendance Date</label>
+                    <select class="form-control" id="attendance_date"></select>
+                    <button type="button" class="btn btn-info mt-2" id="fetch_students">Fetch Students</button>
+                    <div id="student_list" style="margin-top:20px;"></div>
+                    <button type="button" class="btn btn-primary mt-2" id="update_attendance"
+                        style="display:none;">Update Attendance</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main_content %}
+{% block sidebar_menu %}{% include 'staff_template/sidebar_template.html' %}{% endblock sidebar_menu %}
+{% block custom_js %}
+<script>
+    $(document).ready(function () {
+        $("#fetch_attendance").click(function () {
+            $.ajax({
+                url: "{% url 'get_attendance_dates' %}",
+                type: "POST",
+                data: { subject: $("#subject").val(), session_year_id: $("#session_year").val(), csrfmiddlewaretoken: '{{ csrf_token }}' },
+                success: function (data) {
+                    var dates = JSON.parse(data);
+                    var html = "";
+                    for (var i = 0; i < dates.length; i++) {
+                        html += '<option value="' + dates[i].id + '">' + dates[i].attendance_date + '</option>';
+                    }
+                    $("#attendance_date").html(html);
+                    $("#attendance_data").show();
+                }
+            });
+        });
+
+        $("#fetch_students").click(function () {
+            $.ajax({
+                url: "{% url 'get_attendance_student' %}",
+                type: "POST",
+                data: { attendance_date: $("#attendance_date").val(), csrfmiddlewaretoken: '{{ csrf_token }}' },
+                success: function (data) {
+                    var students = JSON.parse(data);
+                    var html = "";
+                    for (var i = 0; i < students.length; i++) {
+                        html += '<div class="form-check">';
+                        html += '<input class="form-check-input" type="checkbox" value="' + students[i].id + '" ' + (students[i].status ? 'checked' : '') + '>';
+                        html += '<label class="form-check-label">' + students[i].name + '</label></div>';
+                    }
+                    $("#student_list").html(html);
+                    $("#update_attendance").show();
+                }
+            });
+        });
+
+        $("#update_attendance").click(function () {
+            var student_data = [];
+            $("#student_list input[type=checkbox]").each(function () {
+                student_data.push({ id: $(this).val(), status: $(this).is(":checked") });
+            });
+            $.ajax({
+                url: "{% url 'save_updateattendance_data' %}",
+                type: "POST",
+                data: { student_ids: JSON.stringify(student_data), attendance_date: $("#attendance_date").val(), csrfmiddlewaretoken: '{{ csrf_token }}' },
+                success: function (data) {
+                    alert(data == "OK" ? "Attendance Updated Successfully" : "Failed to Update Attendance");
+                }
+            });
+        });
+    });
+</script>
+{% endblock custom_js %}

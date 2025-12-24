@@ -1,0 +1,65 @@
+{% extends 'base_template.html' %}
+
+{% block page_title %}
+Staff Feedback
+{% endblock page_title %}
+
+{% block main_content %}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Send Feedback</h3>
+                    </div>
+                    <form action="{% url 'staff_feedback_save' %}" method="post">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Feedback Message</label>
+                                <textarea class="form-control" name="feedback_msg" rows="3" required></textarea>
+                            </div>
+                            {% if messages %}
+                            {% for message in messages %}
+                            {% if message.tags == 'error' %}
+                            <div class="alert alert-danger">{{ message }}</div>
+                            {% endif %}
+                            {% if message.tags == 'success' %}
+                            <div class="alert alert-success">{{ message }}</div>
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Send Feedback</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Feedback History</h3>
+                    </div>
+                    <div class="card-body">
+                        {% for feedback in feedback_data %}
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <p><strong>Feedback:</strong> {{ feedback.feedback }}</p>
+                                <p><strong>Reply:</strong> {{ feedback.feedback_reply|default:"No reply yet" }}</p>
+                                <small class="text-muted">{{ feedback.created_at }}</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main_content %}
+
+{% block sidebar_menu %}
+{% include 'staff_template/sidebar_template.html' %}
+{% endblock sidebar_menu %}
