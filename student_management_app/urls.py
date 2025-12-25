@@ -9,7 +9,7 @@ urlpatterns = [
     path('logout_user', views.logout_user, name="logout"),
     path('admin_home', views.admin_home, name="admin_home"),
     path('staff_home', views.staff_home, name="staff_home"),
-    path('student_home', views.student_home, name="student_home"),
+    path('student_home', StudentViews.student_home, name="student_home"),
     path('add_staff', HodViews.add_staff, name="add_staff"),
     path('add_staff_save', HodViews.add_staff_save, name="add_staff_save"),
     path('add_course', HodViews.add_course, name="add_course"),
@@ -44,4 +44,7 @@ urlpatterns = [
     path('student_feedback', StudentViews.student_feedback, name="student_feedback"),
     path('student_feedback_save', StudentViews.student_feedback_save, name="student_feedback_save"),
     path('student_view_result', StudentViews.student_view_result, name="student_view_result"),
+    path('student_profile', StudentViews.student_profile, name="student_profile"),
+    path('student_profile_update', StudentViews.student_profile_update, name="student_profile_update"),
+    path('student_view_notification', StudentViews.student_view_notification, name="student_view_notification"),
 ]

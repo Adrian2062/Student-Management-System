@@ -112,5 +112,6 @@ def admin_home(request):
 def staff_home(request):
     return render(request, "staff_template/home_content.html")
 
-def student_home(request):
-    return render(request, "student_template/home_content.html")
+# Student home is now handled by StudentViews.student_home
+# Import it in urls.py as: from . import StudentViews
+# And use: StudentViews.student_home
