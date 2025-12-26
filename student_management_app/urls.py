@@ -20,6 +20,18 @@ urlpatterns = [
     path('add_subject_save', HodViews.add_subject_save, name="add_subject_save"),
     path('add_session', HodViews.add_session, name="add_session"),
     path('add_session_save', HodViews.add_session_save, name="add_session_save"),
+    path('manage_staff', HodViews.manage_staff, name="manage_staff"),
+    path('manage_student', HodViews.manage_student, name="manage_student"),
+    path('manage_course', HodViews.manage_course, name="manage_course"),
+    path('manage_subject', HodViews.manage_subject, name="manage_subject"),
+    path('edit_student/<str:student_id>', HodViews.edit_student, name="edit_student"),
+    path('edit_student_save', HodViews.edit_student_save, name="edit_student_save"),
+    path('edit_staff/<str:staff_id>', HodViews.edit_staff, name="edit_staff"),
+    path('edit_staff_save', HodViews.edit_staff_save, name="edit_staff_save"),
+    path('edit_course/<str:course_id>', HodViews.edit_course, name="edit_course"),
+    path('edit_course_save', HodViews.edit_course_save, name="edit_course_save"),
+    path('edit_subject/<str:subject_id>', HodViews.edit_subject, name="edit_subject"),
+    path('edit_subject_save', HodViews.edit_subject_save, name="edit_subject_save"),
     
     # Staff URLs
     path('staff_take_attendance', StaffViews.staff_take_attendance, name="staff_take_attendance"),
@@ -47,4 +59,5 @@ urlpatterns = [
     path('student_profile', StudentViews.student_profile, name="student_profile"),
     path('student_profile_update', StudentViews.student_profile_update, name="student_profile_update"),
     path('student_view_notification', StudentViews.student_view_notification, name="student_view_notification"),
+    path('student_view_subjects', StudentViews.student_view_subjects, name="student_view_subjects"),
 ]

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.urls import reverse
-from .models import CustomUser, AdminHOD, Staffs, Students
+from .models import CustomUser, AdminHOD, Staffs, Students, Courses, Subjects
 
 def ShowLogin(request):
     return render(request, "login_page.html")
@@ -107,7 +107,18 @@ def logout_user(request):
     return redirect("login")
 
 def admin_home(request):
-    return render(request, "hod_template/home_content.html")
+    student_count = Students.objects.all().count()
+    staff_count = Staffs.objects.all().count()
+    course_count = Courses.objects.all().count()
+    subject_count = Subjects.objects.all().count()
+    
+    context = {
+        "student_count": student_count,
+        "staff_count": staff_count,
+        "course_count": course_count,
+        "subject_count": subject_count
+    }
+    return render(request, "hod_template/home_content.html", context)
 
 def staff_home(request):
     return render(request, "staff_template/home_content.html")

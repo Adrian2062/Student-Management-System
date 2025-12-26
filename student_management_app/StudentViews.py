@@ -314,3 +314,25 @@ def student_view_notification(request):
     except Students.DoesNotExist:
         messages.error(request, "Student profile not found")
         return redirect("login")
+
+
+@login_required
+def student_view_subjects(request):
+    """View all subjects for the student's course"""
+    try:
+        student = Students.objects.get(admin=request.user)
+        course = student.course_id
+        
+        # Get all subjects for this student's course
+        subjects = Subjects.objects.filter(course_id=course)
+        
+        context = {
+            'subjects': subjects,
+            'course': course,
+        }
+        
+        return render(request, "student_template/student_view_subjects.html", context)
+    
+    except Students.DoesNotExist:
+        messages.error(request, "Student profile not found")
+        return redirect("login")

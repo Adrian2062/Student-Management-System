@@ -10,6 +10,7 @@
             <form action="{% url 'student_view_attendance_post' %}" method="post">
                 {% csrf_token %}
                 <div class="card-body">
+                    {% if subjects %}
                     <div class="form-group">
                         <label>Select Subject</label>
                         <select class="form-control" name="subject" required>
@@ -19,6 +20,11 @@
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">View Attendance</button>
+                    {% else %}
+                    <div class="alert alert-warning">
+                        No subjects found for your course. Please contact the administrator.
+                    </div>
+                    {% endif %}
 
                     {% if present_count is not None %}
                     <div class="mt-4">
