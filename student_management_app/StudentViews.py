@@ -45,7 +45,7 @@ def student_home(request):
             'unread_notifications': unread_notifications,
         }
         
-        return render(request, "student_template/home_content.html", context)
+        return render(request, "student_template/student_home_content_v4.txt", context)
     
     except Students.DoesNotExist:
         messages.error(request, "Student profile not found")
@@ -66,7 +66,7 @@ def student_view_attendance(request):
             'subjects': subjects,
         }
         
-        return render(request, "student_template/student_view_attendance.html", context)
+        return render(request, "student_template/student_view_attendance_v4.txt", context)
     
     except Students.DoesNotExist:
         messages.error(request, "Student profile not found")
@@ -111,7 +111,7 @@ def student_view_attendance_post(request):
             'attendance_reports': attendance_reports,
         }
         
-        return render(request, "student_template/student_view_attendance.html", context)
+        return render(request, "student_template/student_view_attendance_v4.txt", context)
     
     except Students.DoesNotExist:
         messages.error(request, "Student profile not found")
@@ -134,7 +134,7 @@ def student_view_result(request):
             'student_result': student_result,
         }
         
-        return render(request, "student_template/student_view_result.html", context)
+        return render(request, "student_template/student_view_result_v4.txt", context)
     
     except Students.DoesNotExist:
         messages.error(request, "Student profile not found")

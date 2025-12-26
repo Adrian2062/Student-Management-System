@@ -1,0 +1,40 @@
+{% extends 'base_template.html' %}
+{% block page_title %}View Result{% endblock page_title %}
+{% block main_content %}
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">My Results</h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Assignment Marks</th>
+                            <th>Exam Marks</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for result in student_result %}
+                        <tr>
+                            <td>{{ result.subject_id.subject_name }}</td>
+                            <td>{{ result.subject_assignment_marks }}</td>
+                            <td>{{ result.subject_exam_marks }}</td>
+                            <td>{{ result.subject_assignment_marks|add:result.subject_exam_marks }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center">No results available yet</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main_content %}
+{% block sidebar_menu %}{% include 'student_template/sidebar_template.html' %}{% endblock sidebar_menu %}

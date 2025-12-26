@@ -1,0 +1,122 @@
+{% extends 'base_template.html' %}
+
+{% block page_title %}
+Student Dashboard
+{% endblock page_title %}
+
+{% block main_content %}
+<div class="row">
+    <!-- Welcome Card -->
+    <div class="col-lg-12 mb-3">
+        <div class="alert alert-info">
+            <h4><i class="icon fas fa-user"></i> Welcome, {{ student.admin.first_name }} {{ student.admin.last_name }}!</h4>
+            <p>Course: {% if student.course_id %}{{ student.course_id.course_name }}{% else %}Not Assigned{% endif %} | Session: {% if student.session_year_id %}{{ student.session_year_id.session_start_year|date:"Y" }}-{{ student.session_year_id.session_end_year|date:"Y" }}{% else %}N/A{% endif %}</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Total Subjects -->
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{ total_subjects }}</h3>
+                <p>Total Subjects</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-book"></i>
+            </div>
+            <a href="{% url 'student_view_subjects' %}" class="small-box-footer">View Subjects <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+
+    <!-- Attendance Percentage -->
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3>{{ attendance_percentage }}%</h3>
+                <p>Attendance</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-checkmark-circled"></i>
+            </div>
+            <a href="{% url 'student_view_attendance' %}" class="small-box-footer">View Details <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+
+    <!-- Total Results -->
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3>{{ total_results }}</h3>
+                <p>Exam Results</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-clipboard"></i>
+            </div>
+            <a href="{% url 'student_view_result' %}" class="small-box-footer">View Results <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+
+    <!-- Pending Leaves -->
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-danger">
+            <div class="inner">
+                <h3>{{ pending_leaves }}</h3>
+                <p>Pending Leaves</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-calendar"></i>
+            </div>
+            <a href="{% url 'student_apply_leave' %}" class="small-box-footer">Apply Leave <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Attendance Summary -->
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Attendance Summary</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4 text-center">
+                        <div class="text-success" style="font-size: 2rem;">{{ present_attendance }}</div>
+                        <small>Present</small>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div class="text-danger" style="font-size: 2rem;">{{ absent_attendance }}</div>
+                        <small>Absent</small>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div class="text-info" style="font-size: 2rem;">{{ total_attendance }}</div>
+                        <small>Total</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications -->
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Notifications</h3>
+            </div>
+            <div class="card-body">
+                <div class="text-center">
+                    <div style="font-size: 3rem;" class="text-primary">{{ unread_notifications }}</div>
+                    <p>Unread Notifications</p>
+                    <a href="{% url 'student_view_notification' %}" class="btn btn-primary btn-sm">View All</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}
+
+{% block sidebar_menu %}
+{% include 'student_template/sidebar_template.html' %}
+{% endblock sidebar_menu %}

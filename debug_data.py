@@ -4,7 +4,7 @@ import sys
 
 # Setup Django environment
 sys.path.append('c:\\Users\\AcerPredator\\Desktop\\django pw broadway')
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "student_management_system.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "student_management_project.settings")
 django.setup()
 
 from student_management_app.models import Students, Subjects, Courses, CustomUser, SessionYearModel
